@@ -18,6 +18,7 @@
 ## Examples
 
   - Every 6am:
+
 > ``
      */*/* * 06:00:00
      6
@@ -26,18 +27,21 @@
 Note: In the absence of any date fields, it defaults to `*/*/* *`
 
   - Mondays at noon:
+
 > ``
      */*/* Monday 12:00:00
      M 12
 ``
 
   - Mondays and Thursdays at midnight:
+
 > ``
      */*/* Monday,Thursday 00:00:00
      M,Th 0:0:0
 ``
 
   - The first of the month at 6pm:
+
 > ``
      */*/01 * 18:00:00
      1 18
@@ -74,6 +78,7 @@ Note: In the absence of any date fields, it defaults to `*/*/* *`
 ## Examples: Negative days
 
   - The last of the month at 6pm:
+
 > ``
      */*/-1 * 18:00:00
      -1 18
@@ -82,6 +87,7 @@ Note: In the absence of any date fields, it defaults to `*/*/* *`
 Note: The negation of a day essentially means to count from the end of the month instead of the beginning.
 
   - Every midnight of the last 15 days (2 weeks 1 day) of the year:
+
 > ``
      */12/-14 * 00:00:00
      12/-15 0
@@ -91,23 +97,28 @@ Note: The negation of a day essentially means to count from the end of the month
 ## Examples: Ranges and Increments
 
   - Every hour of the third Monday of every month:
+
 > ``
      */*/* Monday+[3] *:00:00
      M+[3] :0
 ``
 
   - Every minute on the first and third Monday of every month:
+
 > ``
      */*/* Monday+[1,3] *:*:00
      M+[1,3]
 ``
 
-  - The last Thursday in November at noon:``
+  - The last Thursday in November at noon:
+
+> ``
      */11/* Thursday-[1] 12:00:00
      11/ Th-[1] 12
 ``
 
   - Every 15 minutes on Sundays that fall on or between the first and tenth of the month:
+
 > ``
      */*/1-10 Sunday *:00,15,30,45:00
      1-10 Su :00,15,30,45
@@ -117,6 +128,7 @@ Note: The negation of a day essentially means to count from the end of the month
 ``
 
   - Every 4 after minute 1 or 6 minutes after minute 3 on any Sundays that fall on any third day of the month:
+
 > ``
      */*/1+[3] Sunday *:1+[4],3+[6]:00
      1+[3] Su :1+[4],3+[6]
@@ -127,6 +139,7 @@ Note: The negation of a day essentially means to count from the end of the month
   %Y/%M/%D %W %H:%m:%s
 
   - Every 4 after minute 1 or 6 minutes after minute 3 on any Sundays that fall on any third day of the month:
+
 > ``
      */*/1+[%H] Sunday *:%s+[4],3+[6]:00
      1+[%H] Su :%s+[4],3+[6]
@@ -137,6 +150,7 @@ Note: The negation of a day essentially means to count from the end of the month
   Exclusions begin with !
 
   - All but the first day of the month:
+
 > ``
      /!1
 ``
