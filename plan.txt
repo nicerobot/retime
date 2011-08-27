@@ -1,0 +1,85 @@
+- Need an repeater
+  - secondly
+    - every N seconds
+  - minutely
+    - every N minutes
+  - hourly
+    - every N hours
+  - daily
+    - every N days
+  - weekly
+    - every N weeks
+      - i.e. just every N days x7
+  - monthly
+    - day of month
+      - e.g. every Nth day of the month
+    - day of week
+      - e.g. second Tu 
+  - yearly
+    - every N years
+    
+  - repeators are contextually related to the next higher element in that they repeat
+    within the context of the enclosing element.
+      e.g.
+        wday pertains to months.
+        minutes pertain to hours
+  - elements can be calculated or specified.
+  - for prior fields that are calculated, an iterator is every iteration field.
+  - for prior fields that are specific, an iterator is every iteration from that point.
+      
+  - something like +N, where N is applied to the field in which it's used.
+    - every hour, every day, every seven months starting March 2009
+      2009/3+7 *:00
+
+    - every hour, on every fifth day, starting from the third of every month
+      */*/3+5 *:00
+    - every hour, on every fifth day, starting from January third
+      */1/3+5 *:00
+
+  The following calculated-day context means the iterator is only valid until
+     the end of a day.
+     
+    - every 45 minutes starting at 01:00am, every day
+      */*/* 01:00(+45)
+    - every 90 minutes starting at 01:00am, every day
+      */*/* 01:00(+90)
+    - every 90 minutes starting at 01:00am, every day
+      */*/* 01(+1):00(+30)
+
+  The following calculate-month context means the iterator is only valid until
+     the end of a month.
+     
+    - every 45 minutes starting at 01:00am, from the first of the every month
+      */*/1 01:00(+45)
+    - every 90 minutes starting at 01:00am, from the second of the every month
+      */*/2 01:00(+90)
+    - every 90 minutes starting at 01:00am, from the third of the every month
+      */*/3 01(+1):00(+30)
+    - every 90 and 150 minutes starting at 01:00am, from the third of the every month
+      */*/3 01(+1,+2):00(+30)
+    - every 60 and 150 minutes starting at 01:00am, from the third of the every month
+      */*/3 01(+1,+2):00(+0,+30)
+
+
+    - Every hour on the third Monday of every month
+      */* Mo(+3) *:00
+    - every hour on the second Saturday of the month
+      */* Sa(+2) *:00
+    - every hour on Sundays that fall on or between the first and third of the month
+      */*/[1-3] Su *:00
+    - Every minute on the first and third Monday of every month
+      */* Mo(1,3) *:*
+
+    - Every hour on the last Monday of every month
+      */* Mo(-1) *:00
+    - every hour on the second to the last Saturday of the month
+      */* Sa(-2) *:00
+    - every hour on Sundays that fall on or between the first and third of the month
+      */*/[1-3] Su *:00
+    - Every minute on the first and third Monday of every month
+      */* Mo(1,3) *:*
+
+    - every nine and twelve days starting March 1st 2009
+      2009/3/5(+9,+12) *:00
+    - every other month, starting on the 5th and every 9 days, every hour
+      */1+2/5(+9) *:00
