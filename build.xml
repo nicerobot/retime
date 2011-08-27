@@ -1,0 +1,101 @@
+<project name="PROJECT" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<macrodef name="private-tar">
+	  <attribute name="product"/>
+	  <sequential>
+			<tar destfile="target/@{product}-bin.tbz2" compression="bzip2">
+		    <tarfileset dir="src/main/sh" filemode="755">
+		      <include name="@{product}.sh" /> 
+		    </tarfileset>
+	    </tar>
+	  </sequential>
+	</macrodef>
+	
+	<macrodef name="private-concat">
+	  <attribute name="product"/>
+	  <sequential>
+			<concat destfile="target/@{product}">
+		    <filelist dir="target" files="shunarchive"/>
+		    <filelist dir="target" files="@{product}-bin.tbz2"/>
+			</concat>
+			<chmod file="target/@{product}" perm="+x"/>
+	  </sequential>
+	</macrodef>
+	
+	<macrodef name="shunarchive">
+	  <attribute name="product"/>
+	  <sequential>
+			<private-tar product="@{product}" />
+			<private-concat product="@{product}" />
+	  </sequential>
+	</macrodef>
+	
+	<macrodef name="private-template">
+	  <attribute name="product"/>
+	  <sequential>
+			<tar destfile="target/@{product}.tbz2" compression="bzip2" basedir="src/main/resources/template/@{product}" />
+	  </sequential>
+	</macrodef>
+	
+	<macrodef name="ivy-publish">
+	  <attribute name="product"/>
+	  <sequential>
+			<tar destfile="target/@{product}.tbz2" compression="bzip2" basedir="target">
+				<include name="@{product}"/>
+	    </tar>
+	    <ivy:settings file="src/main/config/ivysettings.xml" />
+	    <ivy:resolve file="src/main/config/ivy-@{product}.xml" />
+	    <ivy:publish resolver="internal" pubrevision="1.0" overwrite="true">
+	       <artifacts pattern="target/[artifact].[ext]" />
+	    </ivy:publish>
+		  <delete file="target/ivy.xml"/>
+	  </sequential>
+	</macrodef>
+	
+	<!-- main -->
+	
+	<target name="build" depends="resolve,extract,PROJECT"/>
+
+  <target name="resolve">
+    <ivy:settings file="src/main/config/ivysettings.xml" />
+  	<ivy:retrieve />
+  </target>
+
+	<target name="check-shunarchive">
+	  <condition property="shunarchive.not.present">
+	    <not>
+		    <available file="target/shunarchive" property="shunarchive.present"/>
+	    </not>
+	  </condition>
+	</target>
+
+  <target name="extract-buildtools" depends="check-shunarchive,resolve" if="shunarchive.not.present">
+		<untar src="lib/buildtools-1.0.tbz2" compression="bzip2" dest="target"/>
+  </target>
+
+  <target name="extract" depends="extract-buildtools"/>
+
+  <target name="clean">
+	  <delete dir="target/myproject"/>
+		<delete>
+			<fileset dir="target">
+			  <include name="*.tbz2"/>
+			  <include name="*.py"/>
+			  <include name="*.pyc"/>
+			  <include name=".history"/>
+			  <include name="shunarchive"/>
+			  <include name="PROJECT"/>
+			</fileset>
+		</delete>
+  </target>
+
+	<!-- products -->
+
+  <target name="PROJECT" depends="extract">
+  </target>
+
+  <target name="publish" depends="build">
+    <ivy-publish product="PROJECT"/>
+  </target>
+  
+</project>

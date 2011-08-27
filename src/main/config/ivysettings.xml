@@ -1,0 +1,10 @@
+<ivysettings>
+  <property name="repo.dir" value="${ivy.home}/cache"/>
+  <settings defaultResolver="internal"/>
+  <resolvers>
+    <filesystem name="internal">
+      <ivy pattern="${repo.dir}/[organisation]/[module]/ivy-[revision].xml" />
+      <artifact pattern="${repo.dir}/[organisation]/[module]/[revision]/[artifact].[ext]" />
+    </filesystem>
+  </resolvers>
+</ivysettings>

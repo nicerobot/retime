@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+  <info organisation="org.rnix" module="Pressure"/>
+	<dependencies>
+		<dependency org="org.rnix" name="buildtools" rev="1.0"/>
+	</dependencies>
+</ivy-module>

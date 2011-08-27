@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+  <info organisation="org.rnix" module="PROJECT" revision="1.0" status="integration"/>
+  <publications>
+    <artifact name="PROJECT" ext="tbz2" type="tbz2"/>
+  </publications>
+</ivy-module>
