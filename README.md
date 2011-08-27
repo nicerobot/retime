@@ -1,19 +1,27 @@
-# Date Repetition Language
+# Date/Time Pattern Language for Repetition (DTimpalr)
 
-  Expands on a standard for how static dates are represented:
+  A language for concisely describing date/times, from simple, static date/times to complex, repetitions and increments.
+
+  The syntax expands on a standard for how fixed date/times are represented as:
   
     Year/Month/Day Weekday Hour:Minute:Second
 
-  But instead of a number in a representing a static date/time element, the presence of a value means it repeats at that interval.
+  But in addition to a number representing a fixed date/time element, there is additional syntax to representing "any value" as well as "increments".
   
-  In other words, the date-specification represents this moment in time whenever the the current time matches the pattern.
+  The result is a somewhat familiar format for a variable date/time-specification that can represent "this moment in time" whenever the the current time matches the pattern.
   
   For example:
   
-  - This is a one-time occurence: `1970/1/1 12:00:00`
+  - This is a standard, fixed date, a one-time occurrence: `1970/1/1 12:00:00`
   - This represents every minute of every day: `*/*/* * *:*:00`
-    - This is because it allows for any value in any field except the seconds, which are fixed at 00. The only time the current date/time matches that is ever minute.
-    - This can be shorted to: `::0` or just `*`
+    - This is because it allows for any value in any field except the seconds, which are fixed at 00. The only times the current date/time matches that pattern is ever minute.
+    - This pattern can be shorted to: `::0` or just `*`
+
+# Motivation
+
+  The motivation behind this standard is to provide a simple means to represent complex date/time repetitions and increments to answer a simple question:
+  
+>  Is `*/*/1 * 12:*:00` now?
 
 ## Examples
 
