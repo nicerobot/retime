@@ -1,6 +1,6 @@
-# isnow
+# retime
 
-## Date/Time Pattern Language for Repetition (DTimpalr)
+## Date/time repetition syntax
 
   A language for concisely describing date/times, from simple, static date/times to complex, repetitions and increments.
 
